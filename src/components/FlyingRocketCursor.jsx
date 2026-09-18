@@ -27,6 +27,7 @@ export default function FlyingRocketCursor() {
 
     const root = document.documentElement
     const rocketImage = new Image()
+    const rocketHotspot = '36 2'
     let darkRocketCursor = ''
 
     root.classList.add('rocket-cursor-active')
@@ -42,7 +43,7 @@ export default function FlyingRocketCursor() {
       context.globalCompositeOperation = 'source-in'
       context.fillStyle = '#102b23'
       context.fillRect(0, 0, canvas.width, canvas.height)
-      darkRocketCursor = `url("${canvas.toDataURL('image/png')}") 36 36`
+      darkRocketCursor = `url("${canvas.toDataURL('image/png')}") ${rocketHotspot}`
     }
 
     const updateRocketTone = ({ clientX, clientY }) => {

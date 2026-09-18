@@ -25,6 +25,13 @@ export default function AlgotricsLanding() {
   const pageRef = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const openWorkPage = (event) => {
+    event.preventDefault()
+    window.history.pushState({}, '', '/work')
+    window.dispatchEvent(new PopStateEvent('popstate'))
+    setMenuOpen(false)
+    window.scrollTo(0, 0)
+  }
 
   useEffect(() => {
     const updateNavbar = () => setIsScrolled(window.scrollY > 48)
@@ -138,10 +145,10 @@ export default function AlgotricsLanding() {
         <div className="hero__grain" aria-hidden="true" />
         <nav className={`nav ${isScrolled ? 'nav--scrolled' : ''}`} aria-label="Main navigation">
           <div className="nav__bar">
-            <div className="nav__desktop-links nav__desktop-links--left"><a href="#services">Talents</a><a href="#work">Works</a></div>
+            <div className="nav__desktop-links nav__desktop-links--left"><a href="#services">Talents</a><a href="/work" onClick={openWorkPage}>Works</a></div>
           <a className="brand" href="#top" aria-label="Algotrics home"><img src={webMark} alt="Algotrics" /></a>
-          <div className="nav__links"><a href="#work">Selected work</a><a href="#contact">Let&apos;s talk ↗</a></div>
-            <div className="nav__status"><span>ALGO / 2026</span><span>INDIA — GLOBAL</span></div>
+          <div className="nav__links"><a href="/work" onClick={openWorkPage}>Selected work</a><a href="#contact">Let&apos;s talk </a></div>
+            <div className="nav__status"><span>ALGO / 2026</span><span>INDIA  GLOBAL</span></div>
             <div className="nav__desktop-links nav__desktop-links--right"><a href="#services">About</a><a href="#contact">Contact</a></div>
             <button className="nav__toggle" type="button" aria-expanded={menuOpen} aria-controls="site-menu" onClick={() => setMenuOpen((isOpen) => !isOpen)}>
               <span className="nav__toggle-label">{menuOpen ? 'Close' : 'Menu'}</span><i /><i />
@@ -153,10 +160,10 @@ export default function AlgotricsLanding() {
             <div className="nav__menu-links">
               <a href="#top" onClick={() => setMenuOpen(false)}>Home <span>01</span></a>
               <a href="#services" onClick={() => setMenuOpen(false)}>Services <span>02</span></a>
-              <a href="#work" onClick={() => setMenuOpen(false)}>Selected work <span>03</span></a>
+              <a href="/work" onClick={openWorkPage}>Selected work <span>03</span></a>
               <a href="#contact" onClick={() => setMenuOpen(false)}>Start a project <span>04</span></a>
             </div>
-            <a className="nav__email" href="mailto:hello@algotrics.com">hello@algotrics.com ↗</a>
+            <a className="nav__email" href="mailto:hello@algotrics.com">hello@algotrics.com </a>
           </div>
         </nav>
 
@@ -165,8 +172,8 @@ export default function AlgotricsLanding() {
             <p className="hero__eyebrow"><i /> Digital engineering studio</p>
             <h1 className="hero__headline"><span>Ideas, engineered</span><em>to move forward.</em></h1>
             <p className="hero__copy">We turn ambitious business problems into sharp digital products, scalable platforms, and intelligent experiences.</p>
-            <div className="hero__actions"><a className="button button--solid" href="#work">Explore our work ↓</a><a className="text-link" href="#contact">Start a project ↗</a></div>
-            <p className="hero__scroll">Scroll to discover ↓</p>
+            <div className="hero__actions"><a className="button button--solid" href="#work">Explore our work </a><a className="text-link" href="#contact">Start a project </a></div>
+            <p className="hero__scroll">Scroll to discover </p>
           </div>
 
           <div className="hero__visual" aria-hidden="true">
@@ -178,12 +185,23 @@ export default function AlgotricsLanding() {
         </div>
       </section>
 
+      <section className="what-we-do" id="what-we-do">
+        <div className="what-we-do__intro"><span>01  WHAT WE DO</span><p>Algotricz is your smart technology partner for modern brands. We combine strategy, design, and development to create digital systems that help businesses grow, automate, and lead.</p></div>
+        <h2>From the first spark<br />to the <em>full launch.</em></h2>
+        <div className="what-we-do__list">
+          <article><span>01</span><div><h3>Brand &amp; digital design</h3><p>Clear identities, high-converting websites, and design systems that make a lasting impression.</p></div></article>
+          <article><span>02</span><div><h3>Web development</h3><p>Fast, responsive websites and product experiences engineered to work beautifully everywhere.</p></div></article>
+          <article><span>03</span><div><h3>AI &amp; full-stack systems</h3><p>Practical automation, connected tools, and scalable applications built around your business.</p></div></article>
+        </div>
+        <a className="what-we-do__cta" href="#services">Explore our services <span></span></a>
+      </section>
+
       <section className="manifesto">
-        <div className="section-tag">01 — OUR POINT OF VIEW</div>
+        <div className="section-tag">01  OUR POINT OF VIEW</div>
         <div className="manifesto__copy">
           <p>We pair the big picture with the tiny detail.</p>
           <h2>Strategy in the room.<br /><em>Technology in the details.</em></h2>
-          <a className="text-link text-link--dark" href="#services">See how we work ↘</a>
+          <a className="text-link text-link--dark" href="#services">See how we work </a>
         </div>
       </section>
 
@@ -196,21 +214,21 @@ export default function AlgotricsLanding() {
       </section>
 
       <section className="services" id="services">
-        <div className="services__heading"><span className="section-tag">02 — WHAT WE DO</span><h2>One team.<br /><em>Every angle.</em></h2></div>
+        <div className="services__heading"><span className="section-tag">02  WHAT WE DO</span><h2>One team.<br /><em>Every angle.</em></h2></div>
         <div className="services__grid">
           {services.map(([number, title, description]) => (
-            <article className="service-card" key={number}><span>{number}</span><div><h3>{title}</h3><p>{description}</p><a href="#contact" aria-label={`Learn about ${title}`}>↗</a></div></article>
+            <article className="service-card" key={number}><span>{number}</span><div><h3>{title}</h3><p>{description}</p><a href="#contact" aria-label={`Learn about ${title}`}></a></div></article>
           ))}
         </div>
       </section>
 
       <section className="projects" id="work">
-        <div className="projects__intro"><span className="section-tag">03 — SELECTED WORK</span><p>Built with equal parts curiosity, rigour, and momentum.</p></div>
+        <div className="projects__intro"><span className="section-tag">03  SELECTED WORK</span><p>Built with equal parts curiosity, rigour, and momentum.</p></div>
         <div className="projects__list">
           {projects.map(([name, description, tone], index) => (
             <article className={`project project--${tone}`} key={name}>
               <div className="project__visual"><span className={`project__shape project__shape--${index + 1}`} /></div>
-              <div className="project__meta"><span>0{index + 1}</span><h3>{name}</h3><p>{description}</p><a href="#contact">View case study ↗</a></div>
+              <div className="project__meta"><span>0{index + 1}</span><h3>{name}</h3><p>{description}</p><a href="#contact">View case study </a></div>
             </article>
           ))}
         </div>
@@ -218,9 +236,12 @@ export default function AlgotricsLanding() {
 
       <section className="closing" id="contact">
         <div className="closing__orb" aria-hidden="true" />
-        <div className="closing__content"><span className="section-tag">04 — START SOMETHING</span><h2>Ready when<br /><em>you are.</em></h2><a className="button button--light" href="mailto:hello@algotrics.com">hello@algotrics.com ↗</a></div>
-        <footer><a className="brand" href="#top" aria-label="Algotrics home"><img src={webMark} alt="Algotrics" /></a><span>© 2026 Algotrics</span><a href="#top">Back to top ↑</a></footer>
+        <div className="closing__content"><span className="section-tag">04  START SOMETHING</span><h2>Ready when<br /><em>you are.</em></h2><a className="button button--light" href="mailto:hello@algotrics.com">hello@algotrics.com </a></div>
+        <footer><a className="brand" href="#top" aria-label="Algotrics home"><img src={webMark} alt="Algotrics" /></a><span> 2026 Algotrics</span><a href="#top">Back to top </a></footer>
       </section>
     </main>
   )
 }
+
+
+
