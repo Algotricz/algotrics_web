@@ -14,3 +14,5 @@
 - Added a dedicated About page at `/about`; the primary navigation and homepage About action now lead to the new studio story.
 - Replaced the About page's “How we work” section with an “Our team” section featuring member portraits, names, and roles.
 - Added a dedicated Contact page at `/contact`; navigation and project-start actions now lead to the contact form instead of the homepage footer.
+- Browser refreshes and hard refreshes now return visitors to the top of the home page.
+- Added a dedicated Talents page at `/talents`; Talents links in the primary navigation now open the careers experience.

@@ -9,6 +9,6 @@ export default function SiteNavbar({ onNavigate, path }) {
     setOpen(false)
     onNavigate(target)
   }
-  const links = [['Talents', '/#services'], ['Works', '/work'], ['About', '/about'], ['Contact', '/contact']]
+  const links = [['Talents', '/talents'], ['Works', '/work'], ['About', '/about'], ['Contact', '/contact']]
   return <nav className="site-navbar" aria-label="Primary navigation"><div className="site-navbar__pill"><div className="site-navbar__links">{links.slice(0, 2).map(([label, target]) => <a className={path === target ? 'site-navbar__link site-navbar__link--active' : 'site-navbar__link'} href={target} onClick={(event) => go(event, target)} key={label}>{label}</a>)}</div><a className="site-navbar__logo" href="/" onClick={(event) => go(event, '/')} aria-label="Algotricz home"><img src={logoMark} alt="Algotricz" /></a><div className="site-navbar__links">{links.slice(2).map(([label, target]) => <a className={path === target ? 'site-navbar__link site-navbar__link--active' : 'site-navbar__link'} href={target} onClick={(event) => go(event, target)} key={label}>{label}</a>)}</div><button className="site-navbar__toggle" type="button" aria-label="Toggle menu" aria-expanded={open} onClick={() => setOpen(!open)}><i /><i /></button></div><div className={open ? 'site-navbar__mobile site-navbar__mobile--open' : 'site-navbar__mobile'}>{links.map(([label, target]) => <a href={target} onClick={(event) => go(event, target)} key={label}>{label}</a>)}</div></nav>
 }

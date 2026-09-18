@@ -1,0 +1,101 @@
+.talents-page {
+  --talent-ink: #0e2922;
+  --talent-deep: #06110e;
+  --talent-paper: #f4f2ec;
+  --talent-lime: #d3ff45;
+  background: var(--talent-paper);
+  color: var(--talent-ink);
+  overflow: hidden;
+}
+.talents-page * { box-sizing: border-box; }
+.talents-page__hero {
+  background: var(--talent-ink);
+  color: var(--talent-paper);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100svh;
+  padding: 150px clamp(24px, 6vw, 110px) 70px;
+}
+.talents-page__hero > *,
+.talents-page__values > *,
+.talents-page__roles > *,
+.talents-page__cta > * { margin-left: auto; margin-right: auto; width: min(1500px, 100%); }
+.talents-page__eyebrow,
+.talents-page header > p,
+.talents-page__cta > p {
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .16em;
+  margin-top: 0;
+  text-transform: uppercase;
+}
+.talents-page__eyebrow { align-items: center; color: rgba(244, 242, 236, .7); display: flex; gap: 10px; }
+.talents-page__eyebrow i,
+.talents-page__availability i { background: var(--talent-lime); border-radius: 50%; box-shadow: 0 0 18px rgba(211, 255, 69, .6); height: 8px; width: 8px; }
+.talents-page__hero h1 {
+  font-size: clamp(4rem, 9vw, 10rem);
+  letter-spacing: -.075em;
+  line-height: .82;
+  margin: clamp(34px, 5vw, 72px) auto clamp(54px, 7vw, 100px);
+  width: min(1500px, 100%);
+}
+.talents-page__hero h1 span { display: block; overflow: hidden; }
+.talents-page em { color: var(--talent-lime); font-family: Georgia, serif; font-weight: 400; }
+.talents-page__hero-bottom { align-items: flex-end; border-top: 1px solid rgba(244, 242, 236, .2); display: flex; gap: 40px; justify-content: space-between; padding-top: 28px; }
+.talents-page__intro { color: rgba(244, 242, 236, .68); font-size: clamp(1rem, 1.5vw, 1.35rem); line-height: 1.55; margin: 0; max-width: 650px; }
+.talents-page__availability { align-items: center; display: flex; font-size: .72rem; font-weight: 800; gap: 10px; letter-spacing: .1em; margin: 0; text-transform: uppercase; }
+.talents-page__values,
+.talents-page__roles,
+.talents-page__cta { padding: clamp(90px, 10vw, 160px) clamp(24px, 6vw, 110px); }
+.talents-page header > p,
+.talents-page__cta > p { color: #5b746d; }
+.talents-page header h2,
+.talents-page__cta h2 { font-size: clamp(3.2rem, 6.5vw, 7.5rem); letter-spacing: -.07em; line-height: .9; margin: 30px 0 clamp(65px, 9vw, 125px); }
+.talents-page__value-grid { border-top: 1px solid rgba(14, 41, 34, .25); display: grid; grid-template-columns: repeat(3, 1fr); }
+.talents-page__value-grid article { border-right: 1px solid rgba(14, 41, 34, .2); min-height: 310px; padding: 28px clamp(22px, 3vw, 46px); }
+.talents-page__value-grid article:first-child { padding-left: 0; }
+.talents-page__value-grid article:last-child { border: 0; }
+.talents-page__value-grid span { color: #648078; font-size: .68rem; font-weight: 900; letter-spacing: .14em; }
+.talents-page__value-grid h3 { font-size: clamp(1.7rem, 2.5vw, 2.6rem); letter-spacing: -.05em; margin: 85px 0 18px; }
+.talents-page__value-grid p { color: #4d655e; line-height: 1.65; margin: 0; max-width: 390px; }
+.talents-page__roles { background: var(--talent-lime); }
+.talents-page__roles header > p { color: rgba(14, 41, 34, .62); }
+.talents-page__roles header h2 em { color: var(--talent-ink); }
+.talents-page__role-list { border-top: 2px solid var(--talent-ink); }
+.talents-page__role-list article { align-items: center; border-bottom: 1px solid rgba(14, 41, 34, .32); display: grid; gap: clamp(22px, 4vw, 70px); grid-template-columns: 44px 1fr 1.1fr auto; min-height: 165px; padding: 24px 0; }
+.talents-page__role-list article > span { font-size: .7rem; font-weight: 900; letter-spacing: .14em; }
+.talents-page__role-list article > div > p { font-size: .68rem; font-weight: 900; letter-spacing: .12em; margin: 0 0 8px; text-transform: uppercase; }
+.talents-page__role-list h3 { font-size: clamp(1.7rem, 2.8vw, 3rem); letter-spacing: -.055em; margin: 0; text-transform: capitalize; }
+.talents-page__role-list article > p { line-height: 1.55; margin: 0; max-width: 500px; }
+.talents-page__role-list article > div:last-child { align-items: flex-end; display: flex; flex-direction: column; gap: 20px; }
+.talents-page__role-list small { font-size: .72rem; font-weight: 800; white-space: nowrap; }
+.talents-page__role-list a { background: var(--talent-ink); border-radius: 999px; color: var(--talent-paper); display: flex; font-weight: 900; gap: 34px; justify-content: space-between; min-width: 135px; padding: 15px 18px; text-decoration: none; transition: transform .2s ease; }
+.talents-page__role-list a:hover { transform: translateY(-3px); }
+.talents-page__cta { background: var(--talent-deep); color: var(--talent-paper); min-height: 78svh; }
+.talents-page__cta h2 { max-width: 1300px; }
+.talents-page__cta > div { align-items: center; border-top: 1px solid rgba(244, 242, 236, .2); display: flex; gap: 32px; justify-content: space-between; padding-top: 30px; }
+.talents-page__cta > div p { color: rgba(244, 242, 236, .65); line-height: 1.6; margin: 0; max-width: 560px; }
+.talents-page__cta a { color: var(--talent-lime); font-size: clamp(1rem, 1.4vw, 1.25rem); font-weight: 800; text-decoration: none; }
+.talents-page__cta a span { margin-left: 18px; }
+@media (max-width: 850px) {
+  .talents-page__value-grid { grid-template-columns: 1fr; }
+  .talents-page__value-grid article,
+  .talents-page__value-grid article:first-child { border-bottom: 1px solid rgba(14, 41, 34, .2); border-right: 0; min-height: auto; padding: 28px 0 40px; }
+  .talents-page__value-grid h3 { margin-top: 42px; }
+  .talents-page__role-list article { grid-template-columns: 36px 1fr auto; }
+  .talents-page__role-list article > p { grid-column: 2 / 4; }
+}
+@media (max-width: 620px) {
+  .talents-page__hero { min-height: 760px; padding: 125px 20px 55px; }
+  .talents-page__hero h1 { font-size: clamp(3.4rem, 17vw, 5.5rem); }
+  .talents-page__hero-bottom,
+  .talents-page__cta > div { align-items: flex-start; flex-direction: column; }
+  .talents-page header h2,
+  .talents-page__cta h2 { font-size: clamp(2.8rem, 14vw, 4.7rem); }
+  .talents-page__role-list article { align-items: start; gap: 16px; grid-template-columns: 28px 1fr; padding: 30px 0; }
+  .talents-page__role-list article > p,
+  .talents-page__role-list article > div:last-child { grid-column: 2; }
+  .talents-page__role-list article > div:last-child { align-items: flex-start; }
+  .talents-page__cta { min-height: 680px; }
+}

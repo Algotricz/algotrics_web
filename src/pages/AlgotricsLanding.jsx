@@ -163,7 +163,7 @@ export default function AlgotricsLanding() {
         <div className="hero__grain" aria-hidden="true" />
         <nav className={`nav ${isScrolled ? 'nav--scrolled' : ''}`} aria-label="Main navigation">
           <div className="nav__bar">
-            <div className="nav__desktop-links nav__desktop-links--left"><a href="#services">Talents</a><a href="/work" onClick={(event) => openPage(event, '/work')}>Works</a></div>
+            <div className="nav__desktop-links nav__desktop-links--left"><a href="/talents" onClick={(event) => openPage(event, '/talents')}>Talents</a><a href="/work" onClick={(event) => openPage(event, '/work')}>Works</a></div>
           <a className="brand" href="#top" aria-label="Algotrics home"><img src={webMark} alt="Algotrics" /></a>
           <div className="nav__links"><a href="/work" onClick={(event) => openPage(event, '/work')}>Selected work</a><a href="/contact" onClick={(event) => openPage(event, '/contact')}>Let&apos;s talk </a></div>
             <div className="nav__status"><span>ALGO / 2026</span><span>INDIA  GLOBAL</span></div>
@@ -177,7 +177,7 @@ export default function AlgotricsLanding() {
             <p>Explore Algotrics</p>
             <div className="nav__menu-links">
               <a href="#top" onClick={() => setMenuOpen(false)}>Home <span>01</span></a>
-              <a href="#services" onClick={() => setMenuOpen(false)}>Services <span>02</span></a>
+              <a href="/talents" onClick={(event) => { setMenuOpen(false); openPage(event, '/talents') }}>Talents <span>02</span></a>
               <a href="/work" onClick={(event) => openPage(event, '/work')}>Selected work <span>03</span></a>
               <a href="/about" onClick={(event) => openPage(event, '/about')}>About <span>04</span></a>
               <a href="/contact" onClick={(event) => openPage(event, '/contact')}>Start a project <span>05</span></a>

@@ -3,6 +3,7 @@ import AlgotricsLanding from './pages/AlgotricsLanding'
 import WorkPage from './pages/WorkPage'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
+import TalentsPage from './pages/TalentsPage'
 import FlyingRocketCursor from './components/FlyingRocketCursor'
 import SiteNavbar from './components/SiteNavbar'
 import PageLoader from './components/PageLoader'
@@ -24,7 +25,7 @@ export default function App() {
     return () => window.removeEventListener('load', finishLoading)
   }, [])
 
-  const CurrentPage = path === '/work' ? WorkPage : path === '/about' ? AboutPage : path === '/contact' ? ContactPage : AlgotricsLanding
+  const CurrentPage = path === '/work' ? WorkPage : path === '/about' ? AboutPage : path === '/contact' ? ContactPage : path === '/talents' ? TalentsPage : AlgotricsLanding
   const navigate = (target) => {
     window.history.pushState({}, '', target)
     setPath(window.location.pathname.replace(/\/+$/, ''))

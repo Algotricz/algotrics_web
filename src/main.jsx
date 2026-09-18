@@ -4,8 +4,16 @@ import App from './App.jsx'
 import './styles/Global.css'
 
 if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual'
-if (window.location.hash) window.history.replaceState({}, '', `${window.location.pathname}${window.location.search}`)
+const navigationEntry = window.performance.getEntriesByType('navigation')[0]
+const isPageReload = navigationEntry?.type === 'reload' || window.performance.navigation?.type === 1
+
+if (isPageReload) window.history.replaceState({}, '', '/')
+else if (window.location.hash) window.history.replaceState({}, '', `${window.location.pathname}${window.location.search}`)
 window.scrollTo(0, 0)
+window.addEventListener('load', () => {
+  window.scrollTo(0, 0)
+  requestAnimationFrame(() => window.scrollTo(0, 0))
+}, { once: true })
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
