@@ -18,7 +18,6 @@ const getBackgroundBrightness = (element) => {
   return 0
 }
 
-/** Replaces the desktop pointer with a rocket that contrasts with its background. */
 export default function FlyingRocketCursor() {
   useEffect(() => {
     const canUseRocketCursor = window.matchMedia('(hover: hover) and (pointer: fine)').matches

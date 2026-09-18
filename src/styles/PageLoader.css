@@ -1,0 +1,113 @@
+.page-loader {
+  align-items: center;
+  background: #0e2922;
+  color: #f4f2ec;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  overflow: hidden;
+  position: fixed;
+  z-index: 3000;
+}
+.page-loader::before,
+.page-loader::after {
+  border: 1px solid rgba(211, 255, 69, 0.22);
+  border-radius: 50%;
+  content: "";
+  height: min(52vw, 680px);
+  position: absolute;
+  width: min(52vw, 680px);
+}
+.page-loader::before {
+  animation: loader-orbit 4s linear infinite;
+  border-left-color: #d3ff45;
+}
+.page-loader::after {
+  height: min(34vw, 450px);
+  opacity: 0.55;
+  transform: rotateX(65deg);
+  width: min(34vw, 450px);
+}
+.page-loader__content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  text-align: center;
+  z-index: 1;
+}
+.page-loader__content img {
+  animation: loader-logo 1.15s cubic-bezier(0.2, 0.75, 0.25, 1) both;
+  height: 94px;
+  object-fit: contain;
+  width: 94px;
+}
+.page-loader__content p {
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  margin: 22px 0 8px;
+}
+.page-loader__content span,
+.page-loader small {
+  color: #d3ff45;
+  font-size: 0.61rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.page-loader__progress {
+  background: rgba(244, 242, 236, 0.2);
+  bottom: clamp(35px, 6vw, 70px);
+  height: 1px;
+  left: clamp(24px, 8vw, 130px);
+  overflow: hidden;
+  position: absolute;
+  right: clamp(24px, 8vw, 130px);
+}
+.page-loader__progress i {
+  animation: loader-progress 1.45s cubic-bezier(0.2, 0.75, 0.25, 1) forwards;
+  background: #d3ff45;
+  display: block;
+  height: 100%;
+  transform: translateX(-100%);
+}
+.page-loader small {
+  bottom: calc(clamp(35px, 6vw, 70px) + 16px);
+  position: absolute;
+  right: clamp(24px, 8vw, 130px);
+}
+@keyframes loader-progress {
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes loader-logo {
+  from {
+    opacity: 0;
+    transform: scale(0.55) rotate(-20deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+@keyframes loader-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 650px) {
+  .page-loader::before {
+    height: 84vw;
+    width: 84vw;
+  }
+  .page-loader::after {
+    height: 58vw;
+    width: 58vw;
+  }
+  .page-loader__content img {
+    height: 74px;
+    width: 74px;
+  }
+}

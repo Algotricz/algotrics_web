@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import AlgotricsLanding from './pages/AlgotricsLanding'
 import WorkPage from './pages/WorkPage'
+import AboutPage from './pages/AboutPage'
+import ContactPage from './pages/ContactPage'
 import FlyingRocketCursor from './components/FlyingRocketCursor'
 import SiteNavbar from './components/SiteNavbar'
 import PageLoader from './components/PageLoader'
@@ -22,7 +24,7 @@ export default function App() {
     return () => window.removeEventListener('load', finishLoading)
   }, [])
 
-  const isWorkPage = path === '/work'
+  const CurrentPage = path === '/work' ? WorkPage : path === '/about' ? AboutPage : path === '/contact' ? ContactPage : AlgotricsLanding
   const navigate = (target) => {
     window.history.pushState({}, '', target)
     setPath(window.location.pathname.replace(/\/+$/, ''))
@@ -30,5 +32,5 @@ export default function App() {
     else window.scrollTo(0, 0)
   }
 
-  return <>{isLoading && <PageLoader />}<SiteNavbar path={path} onNavigate={navigate} />{isWorkPage ? <WorkPage /> : <AlgotricsLanding />}<FlyingRocketCursor /></>
+  return <>{isLoading && <PageLoader />}<SiteNavbar path={path} onNavigate={navigate} /><CurrentPage /><FlyingRocketCursor /></>
 }
