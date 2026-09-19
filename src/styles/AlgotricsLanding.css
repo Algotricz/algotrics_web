@@ -470,15 +470,6 @@ a {
   min-height: 100%;
   position: absolute;
 }
-.algotrics-page--scroll-scenes .what-we-do__list article:nth-child(1) {
-  z-index: 1;
-}
-.algotrics-page--scroll-scenes .what-we-do__list article:nth-child(2) {
-  z-index: 2;
-}
-.algotrics-page--scroll-scenes .what-we-do__list article:nth-child(3) {
-  z-index: 3;
-}
 .what-we-do__list article > span {
   color: var(--lime);
   font-size: 0.68rem;

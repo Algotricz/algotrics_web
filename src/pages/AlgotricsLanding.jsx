@@ -74,18 +74,19 @@ export default function AlgotricsLanding() {
           scrollTrigger: {
             trigger: select('.what-we-do__list')[0],
             start: 'top top+=132',
-            end: '+=155%',
+            end: `+=${(serviceSlides.length - 1) * 100}%`,
             pin: true,
             scrub: 0.7,
             anticipatePin: 1,
             invalidateOnRefresh: true,
           },
         })
-        serviceSwipe
-          .to(serviceSlides[0], { autoAlpha: 0, yPercent: -18, ease: 'none', duration: 1 }, 0.45)
-          .to(serviceSlides[1], { yPercent: 0, ease: 'none', duration: 1 }, 0.45)
-          .to(serviceSlides[1], { autoAlpha: 0, yPercent: -18, ease: 'none', duration: 1 }, 1.45)
-          .to(serviceSlides[2], { yPercent: 0, ease: 'none', duration: 1 }, 1.45)
+        serviceSlides.slice(0, -1).forEach((slide, index) => {
+          const transitionStart = index + 0.45
+          serviceSwipe
+            .to(slide, { autoAlpha: 0, yPercent: -18, ease: 'none', duration: 1 }, transitionStart)
+            .to(serviceSlides[index + 1], { yPercent: 0, ease: 'none', duration: 1 }, transitionStart)
+        })
 
         gsap.to(select('.statement__track')[0], {
           xPercent: -66.667,
@@ -209,9 +210,12 @@ export default function AlgotricsLanding() {
         <h2>From the first spark<br />to the <em>full launch.</em></h2>
         <div className="what-we-do__list">
           <div className="what-we-do__track">
-            <article><span>01</span><div><h3>Brand &amp; digital design</h3><p>Clear identities, high-converting websites, and design systems that make a lasting impression.</p></div></article>
-            <article><span>02</span><div><h3>Web development</h3><p>Fast, responsive websites and product experiences engineered to work beautifully everywhere.</p></div></article>
-            <article><span>03</span><div><h3>AI &amp; full-stack systems</h3><p>Practical automation, connected tools, and scalable applications built around your business.</p></div></article>
+            <article><span>01</span><div><h3>Web development</h3><p>Fast, responsive websites and digital products engineered to work beautifully everywhere.</p></div></article>
+            <article><span>02</span><div><h3>Digital marketing</h3><p>Focused campaigns and content that turn attention into measurable business growth.</p></div></article>
+            <article><span>03</span><div><h3>SEO &amp; search visibility</h3><p>Technical SEO and content strategy that help the right customers find you first.</p></div></article>
+            <article><span>04</span><div><h3>Business automation &amp; custom software</h3><p>Streamlined workflows and tailored software built around the way your team works.</p></div></article>
+            <article><span>05</span><div><h3>AI &amp; marketing automation</h3><p>Connected AI tools and intelligent campaigns that create momentum without manual effort.</p></div></article>
+            <article><span>06</span><div><h3>Branding &amp; digital presence</h3><p>Distinct identities and high-converting digital touchpoints that leave a lasting impression.</p></div></article>
           </div>
         </div>
         <a className="what-we-do__cta" href="#services">Explore our services <span></span></a>

@@ -5,6 +5,7 @@ import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
 import TalentsPage from './pages/TalentsPage'
 import FlyingRocketCursor from './components/FlyingRocketCursor'
+import PaperRocketFlight from './components/PaperRocketFlight'
 import SiteNavbar from './components/SiteNavbar'
 import PageLoader from './components/PageLoader'
 
@@ -33,5 +34,5 @@ export default function App() {
     else window.scrollTo(0, 0)
   }
 
-  return <>{isLoading && <PageLoader />}<SiteNavbar path={path} onNavigate={navigate} /><CurrentPage /><FlyingRocketCursor /></>
+  return <>{isLoading && <PageLoader />}<SiteNavbar path={path} onNavigate={navigate} /><CurrentPage /><PaperRocketFlight /><FlyingRocketCursor /></>
 }
