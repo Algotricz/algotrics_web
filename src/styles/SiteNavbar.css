@@ -10,7 +10,7 @@
   align-items: center;
   backdrop-filter: blur(25px);
   background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(244, 242, 236, 0.24);
+  border: 1px solid rgba(245, 241, 232, 0.24);
   border-radius: 999px;
   display: flex;
   gap: clamp(15px, 2vw, 26px);
@@ -25,7 +25,7 @@
   gap: clamp(17px, 2.2vw, 28px);
 }
 .site-navbar__link {
-  color: #f4f2ec;
+  color: #F5F1E8;
   font-size: 0.67rem;
   font-weight: 900;
   letter-spacing: 0.06em;
@@ -33,7 +33,7 @@
   text-transform: uppercase;
 }
 .site-navbar__link::after {
-  background: #d3ff45;
+  background: #B79A68;
   bottom: -7px;
   content: "";
   height: 2px;
@@ -57,7 +57,7 @@
   width: 42px;
 }
 .site-navbar__logo i {
-  background: #c9ff35;
+  background: #B79A68;
   border-radius: 50%;
   display: block;
   height: 42px;
@@ -66,21 +66,21 @@
   width: 42px;
 }
 .site-navbar__logo i::before {
-  background: #008eaa;
+  background: #312D27;
   clip-path: polygon(50% 10%, 100% 91%, 74% 91%, 50% 44%, 26% 91%, 0 91%);
   content: "";
   inset: 0;
   position: absolute;
 }
 .site-navbar__logo i::after {
-  background: #006778;
+  background: #171614;
   clip-path: polygon(50% 17%, 79% 83%, 63% 83%, 50% 55%, 37% 83%, 20% 83%);
   content: "";
   inset: 0;
   position: absolute;
 }
 .site-navbar__logo b {
-  background: #c9ff35;
+  background: #B79A68;
   clip-path: polygon(50% 0, 100% 100%, 0 100%);
   height: 11px;
   left: 16px;
@@ -91,6 +91,7 @@
 }
 .site-navbar__logo img {
   display: block;
+  filter: grayscale(1) contrast(1.25);
   height: 42px;
   object-fit: contain;
   width: 42px;
@@ -130,7 +131,7 @@
     padding: 8px;
   }
   .site-navbar__toggle i {
-    background: #f4f2ec;
+    background: #F5F1E8;
     display: block;
     height: 1px;
     width: 18px;
@@ -138,7 +139,7 @@
   .site-navbar__mobile {
     backdrop-filter: blur(25px);
     background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(244, 242, 236, 0.24);
+    border: 1px solid rgba(245, 241, 232, 0.24);
     border-radius: 18px;
     margin: 8px 12px 0;
     opacity: 0;
@@ -154,8 +155,8 @@
     transform: translateY(0);
   }
   .site-navbar__mobile a {
-    border-bottom: 1px solid rgba(244, 242, 236, 0.18);
-    color: #f4f2ec;
+    border-bottom: 1px solid rgba(245, 241, 232, 0.18);
+    color: #F5F1E8;
     font-size: 0.8rem;
     font-weight: 900;
     padding: 15px 0;

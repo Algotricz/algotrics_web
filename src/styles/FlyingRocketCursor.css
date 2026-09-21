@@ -1,5 +1,0 @@
-html.rocket-cursor-active,
-html.rocket-cursor-active * {
-  cursor:
-    var(--rocket-cursor, url("../assets/rocket-cursor.png") 36 2), none !important;
-}

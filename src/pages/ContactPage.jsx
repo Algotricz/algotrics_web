@@ -33,7 +33,7 @@ export default function ContactPage() {
     const subject = encodeURIComponent(`Project enquiry from ${name}`)
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nCompany: ${company}\nProject type: ${projectType}\n\nProject details:\n${message}`)
 
-    setStatus('Opening your email app…')
+    setStatus('Opening your email appâ€¦')
     window.location.href = `mailto:hello@algotrics.com?subject=${subject}&body=${body}`
   }
 
@@ -46,7 +46,7 @@ export default function ContactPage() {
           <p>Tell us what you are building, where you are stuck, or what you want to improve. We will get back with a clear next step.</p>
           <div className="contact-page__details">
             <div><span>Email</span><a href="mailto:hello@algotrics.com">hello@algotrics.com</a></div>
-            <div><span>Based in</span><p>India · Working worldwide</p></div>
+            <div><span>Based in</span><p>India Â· Working worldwide</p></div>
             <div><span>Response time</span><p>Usually within two business days</p></div>
           </div>
         </div>
@@ -61,10 +61,10 @@ export default function ContactPage() {
             <label><span>Company</span><input name="company" type="text" placeholder="Company name" autoComplete="organization" /></label>
             <label><span>What can we help with? *</span><select name="projectType" defaultValue="" required><option value="" disabled>Select a service</option>{projectTypes.map((type) => <option value={type} key={type}>{type}</option>)}</select></label>
           </div>
-          <label><span>Tell us about the project *</span><textarea name="message" placeholder="A little about your goals, timeline, and what success looks like…" rows="6" required /></label>
+          <label><span>Tell us about the project *</span><textarea name="message" placeholder="A little about your goals, timeline, and what success looks likeâ€¦" rows="6" required /></label>
           <div className="contact-form__footer">
             <p>By sending this enquiry, you agree to be contacted about your project.</p>
-            <button type="submit">Send enquiry <span>↗</span></button>
+            <button type="submit">Send enquiry <span>â†—</span></button>
           </div>
           <p className="contact-form__status" aria-live="polite">{status}</p>
         </form>

@@ -3,10 +3,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import logoMark from '../assets/algo.png'
 import aboutStudio from '../assets/about-algotrics-studio.png'
-import aaryaPortrait from '../assets/team-aarya-menon.png'
-import rohanPortrait from '../assets/team-rohan-mehta.png'
-import nilaPortrait from '../assets/team-nila-kapoor.png'
-import arjunPortrait from '../assets/team-arjun-varma.png'
+import { teamMembers } from '../data/teamMembers'
 import '../styles/AboutPage.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -17,14 +14,7 @@ const principles = [
   ['03', 'Built to evolve', 'We create flexible systems that can grow with the business instead of becoming tomorrow\'s limitation.'],
 ]
 
-const teamMembers = [
-  ['Aarya Menon', 'Strategy Director', aaryaPortrait],
-  ['Rohan Mehta', 'Creative Director', rohanPortrait],
-  ['Nila Kapoor', 'Lead Engineer', nilaPortrait],
-  ['Arjun Varma', 'Product Designer', arjunPortrait],
-]
-
-export default function AboutPage() {
+export default function AboutPage({ onNavigate }) {
   const pageRef = useRef(null)
 
   useLayoutEffect(() => {
@@ -87,7 +77,7 @@ export default function AboutPage() {
             <div className="about-page__symbol-ring"><i /><i /><i /></div>
             <img src={logoMark} alt="" />
           </div>
-          <a className="about-page__scroll-cue" href="#our-story">Our story <span>↓</span></a>
+          <a className="about-page__scroll-cue" href="#our-story">Our story <span>â†“</span></a>
         </div>
       </section>
 
@@ -100,7 +90,7 @@ export default function AboutPage() {
           <p className="about-page__section-label">01 / Our studio</p>
           <h2>Built where strategy, design, and engineering meet.</h2>
           <p>Good digital work does more than look polished. It gives people clarity, removes friction, and creates momentum for the business behind it.</p>
-          <p>That is why we work across disciplines from the start. The idea, the experience, and the technology are shaped together—not passed from one disconnected team to another.</p>
+          <p>That is why we work across disciplines from the start. The idea, the experience, and the technology are shaped togetherâ€”not passed from one disconnected team to another.</p>
           <div className="about-page__disciplines" aria-label="Algotrics disciplines"><span>Strategy</span><span>Design</span><span>Engineering</span></div>
         </div>
       </section>
@@ -127,10 +117,10 @@ export default function AboutPage() {
           <h2>The people behind<br />the <em>work.</em></h2>
         </div>
         <div className="about-page__team-grid">
-          {teamMembers.map(([name, role, portrait], index) => (
+          {teamMembers.map(({ name, role, portrait, slug }, index) => (
             <article className="about-page__team-card" key={name}>
-              <div className="about-page__team-image"><img src={portrait} alt={`${name}, ${role}`} /></div>
-              <div className="about-page__team-meta"><span>0{index + 1}</span><div><h3>{name}</h3><p>{role}</p></div></div>
+              <a className="about-page__team-image" href={`/team/${slug}`} onClick={(event) => { event.preventDefault(); onNavigate(`/team/${slug}`) }}><img src={portrait} alt={`${name}, ${role}`} /></a>
+              <div className="about-page__team-meta"><span>0{index + 1}</span><div><h3><a href={`/team/${slug}`} onClick={(event) => { event.preventDefault(); onNavigate(`/team/${slug}`) }}>{name}</a></h3><p>{role}</p></div></div>
             </article>
           ))}
         </div>
@@ -139,7 +129,7 @@ export default function AboutPage() {
       <section className="about-page__cta" data-about-reveal>
         <p className="about-page__section-label">04 / Start something</p>
         <h2>Have a useful problem<br />to <em>solve?</em></h2>
-        <div><p>Bring us the challenge. We will help find the clearest way forward.</p><a href="/contact">Let&apos;s talk <span>→</span></a></div>
+        <div><p>Bring us the challenge. We will help find the clearest way forward.</p><a href="/contact">Let&apos;s talk <span>â†’</span></a></div>
       </section>
     </main>
   )

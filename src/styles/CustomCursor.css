@@ -1,0 +1,5 @@
+.custom-cursor, .custom-cursor__dot { left: 0; mix-blend-mode: difference; opacity: 0; pointer-events: none; position: fixed; top: 0; z-index: 10000; }
+.custom-cursor { aspect-ratio: 1; border: 1px solid rgba(245, 241, 232, .9); border-radius: 50%; box-shadow: 0 0 22px rgba(245, 241, 232, .2); width: 38px; }
+.custom-cursor__dot { aspect-ratio: 1; background: #F5F1E8; border-radius: 50%; box-shadow: 0 0 14px rgba(245, 241, 232, .5); width: 7px; }
+@media (hover: hover) and (pointer: fine) { html, html * { cursor: none !important; } }
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) { .custom-cursor, .custom-cursor__dot { display: none; } }

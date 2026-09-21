@@ -1,4 +1,8 @@
 :root {
+  --site-ink: #171614;
+  --site-ink-soft: #24211D;
+  --site-cream: #F5F1E8;
+  --site-sand: #B79A68;
   font-family:
     Inter,
     ui-sans-serif,
@@ -13,6 +17,19 @@
 }
 
 body {
+  background: var(--site-cream);
+  color: var(--site-ink);
   margin: 0;
   min-width: 320px;
+}
+
+::selection {
+  background: var(--site-ink);
+  color: var(--site-cream);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--site-sand);
+  outline-offset: 4px;
 }

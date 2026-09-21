@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import paperRocket from '../assets/rocket/realistic-paper-rocket.png'
-import './PaperRocketFlight.css'
+import '../styles/PaperRocketFlight.css'
 
 const flightPath = [
   { x: 0.09, y: 0.12 },

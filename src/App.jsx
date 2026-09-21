@@ -4,7 +4,10 @@ import WorkPage from './pages/WorkPage'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
 import TalentsPage from './pages/TalentsPage'
-import FlyingRocketCursor from './components/FlyingRocketCursor'
+import TeamMemberPortfolioPage from './pages/TeamMemberPortfolioPage'
+import UpcomingPage from './pages/UpcomingPage'
+import CustomCursor from './components/CustomCursor'
+import ProjectCaseStudyPage from './pages/ProjectCaseStudyPage'
 import PaperRocketFlight from './components/PaperRocketFlight'
 import SiteNavbar from './components/SiteNavbar'
 import PageLoader from './components/PageLoader'
@@ -26,7 +29,9 @@ export default function App() {
     return () => window.removeEventListener('load', finishLoading)
   }, [])
 
-  const CurrentPage = path === '/work' ? WorkPage : path === '/about' ? AboutPage : path === '/contact' ? ContactPage : path === '/talents' ? TalentsPage : AlgotricsLanding
+  const teamMemberSlug = path.match(/^\/team\/([^/]+)$/)?.[1]
+  const projectSlug = path.match(/^\/work\/([^/]+)$/)?.[1]
+  const CurrentPage = path === '/work' ? WorkPage : projectSlug ? ProjectCaseStudyPage : path === '/about' ? AboutPage : path === '/contact' ? ContactPage : path === '/talents' ? TalentsPage : path === '/upcoming' ? UpcomingPage : teamMemberSlug ? TeamMemberPortfolioPage : AlgotricsLanding
   const navigate = (target) => {
     window.history.pushState({}, '', target)
     setPath(window.location.pathname.replace(/\/+$/, ''))
@@ -34,5 +39,5 @@ export default function App() {
     else window.scrollTo(0, 0)
   }
 
-  return <>{isLoading && <PageLoader />}<SiteNavbar path={path} onNavigate={navigate} /><CurrentPage /><PaperRocketFlight /><FlyingRocketCursor /></>
+  return <>{isLoading && <PageLoader />}<SiteNavbar path={path} onNavigate={navigate} /><CurrentPage onNavigate={navigate} slug={projectSlug || teamMemberSlug} /><PaperRocketFlight /><CustomCursor /></>
 }

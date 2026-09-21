@@ -229,7 +229,7 @@ export default function AlgotricsLanding() {
             <h2 id="about-showcase-title">Building stronger brands.<br /><em>Creating impressions.</em></h2>
             <p>We create purposeful digital experiences with clarity, craft, and a relentless focus on the people who use them.</p>
             <ul><li>Clear strategy from the first conversation.</li><li>Built to convert, scale, and stay memorable.</li></ul>
-            <div className="about-showcase__actions"><a href="/about" onClick={(event) => openPage(event, '/about')} className="about-showcase__button">Meet Algotricz <span>→</span></a><div className="about-showcase__rating" aria-label="Rated five stars by clients"><b>★★★★★</b><span>Trusted by ambitious teams</span></div></div>
+            <div className="about-showcase__actions"><a href="/about" onClick={(event) => openPage(event, '/about')} className="about-showcase__button">Meet Algotricz <span>â†’</span></a><div className="about-showcase__rating" aria-label="Rated five stars by clients"><b>â˜…â˜…â˜…â˜…â˜…</b><span>Trusted by ambitious teams</span></div></div>
           </div>
         </div>
       </section>
