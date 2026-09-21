@@ -77,7 +77,7 @@ export default function AboutPage({ onNavigate }) {
             <div className="about-page__symbol-ring"><i /><i /><i /></div>
             <img src={logoMark} alt="" />
           </div>
-          <a className="about-page__scroll-cue" href="#our-story">Our story <span>â†“</span></a>
+          <a className="about-page__scroll-cue" href="#our-story">Our story <span>↓</span></a>
         </div>
       </section>
 
@@ -90,7 +90,7 @@ export default function AboutPage({ onNavigate }) {
           <p className="about-page__section-label">01 / Our studio</p>
           <h2>Built where strategy, design, and engineering meet.</h2>
           <p>Good digital work does more than look polished. It gives people clarity, removes friction, and creates momentum for the business behind it.</p>
-          <p>That is why we work across disciplines from the start. The idea, the experience, and the technology are shaped togetherâ€”not passed from one disconnected team to another.</p>
+          <p>That is why we work across disciplines from the start. The idea, the experience, and the technology are shaped together—not passed from one disconnected team to another.</p>
           <div className="about-page__disciplines" aria-label="Algotrics disciplines"><span>Strategy</span><span>Design</span><span>Engineering</span></div>
         </div>
       </section>
@@ -129,7 +129,7 @@ export default function AboutPage({ onNavigate }) {
       <section className="about-page__cta" data-about-reveal>
         <p className="about-page__section-label">04 / Start something</p>
         <h2>Have a useful problem<br />to <em>solve?</em></h2>
-        <div><p>Bring us the challenge. We will help find the clearest way forward.</p><a href="/contact">Let&apos;s talk <span>â†’</span></a></div>
+        <div><p>Bring us the challenge. We will help find the clearest way forward.</p><a href="/contact">Let&apos;s talk <span>→</span></a></div>
       </section>
     </main>
   )

@@ -248,7 +248,7 @@ body .work-page .work-nav {
 }
 .work-gallery h2 em {
   color: var(--work-lime);
-  font-family: Georgia, serif;
+  font-family: var(--font-accent);
   font-weight: 400;
 }
 .work-gallery__grid {
@@ -298,7 +298,7 @@ body .work-page .work-nav {
   width: 100%;
 }
 .portfolio-item__brand img { display: block; max-height: 72%; max-width: 72%; object-fit: contain; }
-.portfolio-item__brand-initial { background: #B79A68; border-radius: 50%; color: #171614; font-family: Georgia, serif; font-size: clamp(4rem, 10vw, 9rem); height: min(65%, 230px); width: min(65%, 230px); }
+.portfolio-item__brand-initial { background: #B79A68; border-radius: 50%; color: #171614; font-family: var(--font-accent); font-size: clamp(4rem, 10vw, 9rem); height: min(65%, 230px); width: min(65%, 230px); }
 .portfolio-item:hover .portfolio-item__art--video .portfolio-item__preview, .portfolio-item:focus-within .portfolio-item__art--video .portfolio-item__preview { clip-path: circle(150% at 50% 50%); transform: scale(1); }
 .portfolio-item:hover .portfolio-item__art--video .portfolio-item__brand, .portfolio-item:focus-within .portfolio-item__art--video .portfolio-item__brand { filter: blur(10px); opacity: 0; transform: scale(.72) rotate(-5deg); }
 .portfolio-item__meta {
@@ -342,7 +342,7 @@ body .work-page .work-nav {
 }
 .work-footer p span {
   color: #817565;
-  font-family: Georgia, serif;
+  font-family: var(--font-accent);
   font-weight: 400;
 }
 .work-footer a {

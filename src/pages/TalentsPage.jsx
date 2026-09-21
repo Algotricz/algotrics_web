@@ -47,9 +47,9 @@ export default function TalentsPage() {
 
     <section className="talents-page__roles" data-talent-reveal>
       <header><p>02 / Open roles</p><h2>Find your place<br />in the <em>team.</em></h2></header>
-      <div className="talents-page__role-list">{opportunities.map(([number, title, discipline, location, description]) => <article key={number}><span>{number}</span><div><p>{discipline}</p><h3>{title}</h3></div><p>{description}</p><div><small>{location}</small><a href={`mailto:hello@algotrics.com?subject=${encodeURIComponent(`Application: ${title}`)}`}>Apply <b>â†—</b></a></div></article>)}</div>
+      <div className="talents-page__role-list">{opportunities.map(([number, title, discipline, location, description]) => <article key={number}><span>{number}</span><div><p>{discipline}</p><h3>{title}</h3></div><p>{description}</p><div><small>{location}</small><a href={`mailto:hello@algotrics.com?subject=${encodeURIComponent(`Application: ${title}`)}`}>Apply <b>↗</b></a></div></article>)}</div>
     </section>
 
-    <section className="talents-page__cta" data-talent-reveal><p>03 / Introduce yourself</p><h2>Do not see your role?<br /><em>We still want to hear from you.</em></h2><div><p>Send us your portfolio, your story, and the kind of work you want to make next.</p><a href="mailto:hello@algotrics.com?subject=Talent%20application">hello@algotrics.com <span>â†—</span></a></div></section>
+    <section className="talents-page__cta" data-talent-reveal><p>03 / Introduce yourself</p><h2>Do not see your role?<br /><em>We still want to hear from you.</em></h2><div><p>Send us your portfolio, your story, and the kind of work you want to make next.</p><a href="mailto:hello@algotrics.com?subject=Talent%20application">hello@algotrics.com <span>↗</span></a></div></section>
   </main>
 }

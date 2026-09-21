@@ -19,7 +19,7 @@ export default function TeamMemberPortfolioPage({ slug, onNavigate }) {
   return (
     <main className="team-portfolio" style={{ '--member-accent': member.theme }}>
       <section className="team-portfolio__hero">
-        <button className="team-portfolio__back" type="button" onClick={() => onNavigate('/about')}>â† Our team</button>
+        <button className="team-portfolio__back" type="button" onClick={() => onNavigate('/about')}>← Our team</button>
         <div className="team-portfolio__identity">
           <p>Algotrics / People <span>01</span></p>
           <h1>{member.name}</h1>
@@ -27,12 +27,12 @@ export default function TeamMemberPortfolioPage({ slug, onNavigate }) {
           <p className="team-portfolio__intro">{member.intro}</p>
         </div>
         <div className="team-portfolio__portrait"><img src={member.portrait} alt={`${member.name}, ${member.role}`} /></div>
-        <p className="team-portfolio__scroll">Scroll to explore <span>â†“</span></p>
+        <p className="team-portfolio__scroll">Scroll to explore <span>↓</span></p>
       </section>
 
       <section className="team-portfolio__about">
         <p className="team-portfolio__label">01 / About</p>
-        <div><p className="team-portfolio__bio">{member.bio}</p><blockquote>â€œ{member.statement}â€</blockquote></div>
+        <div><p className="team-portfolio__bio">{member.bio}</p><blockquote>“{member.statement}”</blockquote></div>
       </section>
 
       <section className="team-portfolio__details">
@@ -42,7 +42,7 @@ export default function TeamMemberPortfolioPage({ slug, onNavigate }) {
 
       <section className="team-portfolio__selected-work">
         <div className="team-portfolio__section-intro"><p className="team-portfolio__label">04 / Selected work</p><h2>A point of view,<br /><em>put into practice.</em></h2></div>
-        <div className="team-portfolio__project-grid">{member.projects.map(([folder, title, category, year], index) => <a className={`team-portfolio__project team-portfolio__project--${index + 1}`} href="/work" onClick={(event) => { event.preventDefault(); onNavigate('/work') }} key={title}><div><img src={projectImage(folder)} alt="" /><span>View work â†—</span></div><p>{year} / {category}</p><h3>{title}</h3></a>)}</div>
+        <div className="team-portfolio__project-grid">{member.projects.map(([folder, title, category, year], index) => <a className={`team-portfolio__project team-portfolio__project--${index + 1}`} href="/work" onClick={(event) => { event.preventDefault(); onNavigate('/work') }} key={title}><div><img src={projectImage(folder)} alt="" /><span>View work ↗</span></div><p>{year} / {category}</p><h3>{title}</h3></a>)}</div>
       </section>
 
       <section className="team-portfolio__experience">
@@ -52,7 +52,7 @@ export default function TeamMemberPortfolioPage({ slug, onNavigate }) {
 
       <section className="team-portfolio__contact">
         <p>Have a useful problem to solve?</p>
-        <a href="/contact" onClick={(event) => { event.preventDefault(); onNavigate('/contact') }}>Start a conversation <span>â†’</span></a>
+        <a href="/contact" onClick={(event) => { event.preventDefault(); onNavigate('/contact') }}>Start a conversation <span>→</span></a>
       </section>
     </main>
   )

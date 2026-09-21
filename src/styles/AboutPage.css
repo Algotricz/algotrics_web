@@ -70,7 +70,7 @@
 .about-page h1 em,
 .about-page h2 em {
   color: var(--about-lime);
-  font-family: Georgia, serif;
+  font-family: var(--font-accent);
   font-weight: 400;
 }
 

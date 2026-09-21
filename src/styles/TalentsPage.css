@@ -40,8 +40,8 @@
   margin: clamp(34px, 5vw, 72px) auto clamp(54px, 7vw, 100px);
   width: min(1500px, 100%);
 }
-.talents-page__hero h1 span { display: block; overflow: hidden; }
-.talents-page em { color: var(--talent-lime); font-family: Georgia, serif; font-weight: 400; }
+.talents-page__hero h1 span { display: block; margin: -.12em 0 -.16em; overflow: hidden; padding: .12em 0 .16em; }
+.talents-page em { color: var(--talent-lime); font-family: var(--font-accent); font-weight: 400; }
 .talents-page__hero-bottom { align-items: flex-end; border-top: 1px solid rgba(245, 241, 232, .2); display: flex; gap: 40px; justify-content: space-between; padding-top: 28px; }
 .talents-page__intro { color: rgba(245, 241, 232, .68); font-size: clamp(1rem, 1.5vw, 1.35rem); line-height: 1.55; margin: 0; max-width: 650px; }
 .talents-page__availability { align-items: center; display: flex; font-size: .72rem; font-weight: 800; gap: 10px; letter-spacing: .1em; margin: 0; text-transform: uppercase; }

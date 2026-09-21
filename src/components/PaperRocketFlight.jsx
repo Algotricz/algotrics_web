@@ -15,6 +15,20 @@ const flightPath = [
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max)
 const DASH_COUNT = 10
+const sideWindPaths = [
+  'M 0 38 C 108 18, 248 61, 420 36',
+  'M 0 102 C 96 125, 238 72, 420 105',
+  'M 0 166 C 118 138, 254 192, 420 162',
+  'M 0 230 C 96 253, 230 205, 420 234',
+  'M 0 294 C 122 264, 256 319, 420 290',
+  'M 0 358 C 105 382, 236 334, 420 362',
+  'M 0 422 C 125 393, 254 447, 420 418',
+  'M 0 486 C 98 510, 235 460, 420 490',
+  'M 0 550 C 114 521, 262 577, 420 546',
+  'M 0 614 C 92 638, 234 590, 420 618',
+  'M 0 678 C 121 650, 252 704, 420 674',
+  'M 0 742 C 104 765, 242 718, 420 746',
+]
 
 const getCurvePoint = (start, control, end, progress) => {
   const inverse = 1 - progress
@@ -45,12 +59,16 @@ const createFlightPath = (width, height) => {
 export default function PaperRocketFlight() {
   const rocketRef = useRef(null)
   const artworkRef = useRef(null)
+  const windRef = useRef(null)
+  const sideWindRef = useRef(null)
   const flightPathRef = useRef(null)
   const dashRefs = useRef([])
 
   useLayoutEffect(() => {
     const rocket = rocketRef.current
     const artwork = artworkRef.current
+    const wind = windRef.current
+    const sideWind = sideWindRef.current
     const route = flightPathRef.current
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     let isEntering = !reducedMotion
@@ -60,7 +78,9 @@ export default function PaperRocketFlight() {
     let lastScrollPosition = window.scrollY
     let scrollDirection = 1
     const autoFlightStart = window.performance.now()
+    const isContactPage = window.location.pathname === '/contact'
     const setArtworkRotation = gsap.quickTo(artwork, 'rotation', { duration: 0.58, ease: 'power2.out' })
+    const setWindRotation = gsap.quickTo(wind, 'rotation', { duration: 0.58, ease: 'power2.out' })
 
     const updateRoute = () => {
       route.setAttribute('d', createFlightPath(window.innerWidth, window.innerHeight))
@@ -71,15 +91,16 @@ export default function PaperRocketFlight() {
       const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1)
       const hasScrollablePage = maxScroll > 1
       const elapsed = (window.performance.now() - autoFlightStart) / 1000
-      const autoOrbit = elapsed * 0.42
+      const autoOrbit = elapsed * 0.36
       const autoPoint = (offset = 0) => ({
         x: window.innerWidth * (0.5 + Math.sin(autoOrbit + offset) * 0.33),
         y: window.innerHeight * (0.48 + Math.sin((autoOrbit + offset) * 2) * 0.16),
       })
-      const progress = hasScrollablePage ? clamp(window.scrollY / maxScroll, 0, 1) : elapsed
-      const routePoint = hasScrollablePage ? route.getPointAtLength(routeLength * progress) : autoPoint()
-      const pointAhead = hasScrollablePage ? route.getPointAtLength(Math.min(routeLength, routeLength * progress + 2)) : autoPoint(0.012)
-      const pointBehind = hasScrollablePage ? route.getPointAtLength(Math.max(0, routeLength * progress - 2)) : autoPoint(-0.012)
+      const isAutoFlying = isContactPage || !hasScrollablePage
+      const progress = isAutoFlying ? elapsed : clamp(window.scrollY / maxScroll, 0, 1)
+      const routePoint = isAutoFlying ? autoPoint() : route.getPointAtLength(routeLength * progress)
+      const pointAhead = isAutoFlying ? autoPoint(0.012) : route.getPointAtLength(Math.min(routeLength, routeLength * progress + 2))
+      const pointBehind = isAutoFlying ? autoPoint(-0.012) : route.getPointAtLength(Math.max(0, routeLength * progress - 2))
       const angle = Math.atan2(pointAhead.y - pointBehind.y, pointAhead.x - pointBehind.x) * (180 / Math.PI)
       const angleInRadians = angle * (Math.PI / 180)
       const wind = Math.sin(progress * 17.4) * 10 + Math.sin(progress * 41.2) * 3
@@ -91,12 +112,15 @@ export default function PaperRocketFlight() {
       const top = clamp(point.y - rocket.offsetHeight / 2, 14, window.innerHeight - rocket.offsetHeight - 14)
 
       gsap.set(rocket, { x: left, y: top })
-      const travelAngle = hasScrollablePage && scrollDirection < 0 ? angle + 180 : angle
+      const travelAngle = !isAutoFlying && scrollDirection < 0 ? angle + 180 : angle
       const visualAngle = travelAngle
       const visualAngleInRadians = visualAngle * (Math.PI / 180)
       const forward = { x: Math.cos(visualAngleInRadians), y: Math.sin(visualAngleInRadians) }
       const curveSide = { x: -Math.sin(visualAngleInRadians), y: Math.cos(visualAngleInRadians) }
       setArtworkRotation(visualAngle)
+      setWindRotation(visualAngle)
+      sideWind.dataset.side = forward.x >= 0 ? 'left' : 'right'
+      sideWind.style.setProperty('--wind-y', `${point.y}px`)
       const trailStart = {
         x: point.x - forward.x * rocket.offsetWidth * 0.4 + curveSide.x * rocket.offsetHeight * 0.05,
         y: point.y - forward.y * rocket.offsetWidth * 0.4 + curveSide.y * rocket.offsetHeight * 0.05,
@@ -135,7 +159,7 @@ export default function PaperRocketFlight() {
       schedulePosition()
     }
     const runAutoFlight = () => {
-      if (isEntering || document.documentElement.scrollHeight - window.innerHeight > 1) {
+      if (isEntering || (!isContactPage && document.documentElement.scrollHeight - window.innerHeight > 1)) {
         autoFrameId = 0
         return
       }
@@ -145,7 +169,7 @@ export default function PaperRocketFlight() {
     const handleResize = () => {
       updateRoute()
       schedulePosition()
-      if (!autoFrameId && document.documentElement.scrollHeight - window.innerHeight <= 1) runAutoFlight()
+      if (!autoFrameId && (isContactPage || document.documentElement.scrollHeight - window.innerHeight <= 1)) runAutoFlight()
     }
 
     updateRoute()
@@ -165,7 +189,7 @@ export default function PaperRocketFlight() {
           isEntering = false
           gsap.set(rocket, { rotation: 0 })
           positionRocket()
-          if (document.documentElement.scrollHeight - window.innerHeight <= 1) runAutoFlight()
+          if (isContactPage || document.documentElement.scrollHeight - window.innerHeight <= 1) runAutoFlight()
         },
       },
     )
@@ -176,6 +200,7 @@ export default function PaperRocketFlight() {
     return () => {
       enterAnimation.kill()
       setArtworkRotation.tween?.kill()
+      setWindRotation.tween?.kill()
       window.cancelAnimationFrame(frameId)
       window.cancelAnimationFrame(autoFrameId)
       window.removeEventListener('scroll', handleScroll)
@@ -183,5 +208,5 @@ export default function PaperRocketFlight() {
     }
   }, [])
 
-  return <><svg className="paper-rocket-route" aria-hidden="true"><path className="paper-rocket-route__guide" ref={flightPathRef} />{Array.from({ length: DASH_COUNT }, (_, index) => <path className="paper-rocket-route__dash" key={index} ref={(element) => { dashRefs.current[index] = element }} style={{ animationDelay: `${index * 120}ms` }} />)}</svg><div className="paper-rocket-flight" ref={rocketRef} aria-hidden="true"><div className="paper-rocket-flight__glide"><img ref={artworkRef} src={paperRocket} alt="" /></div></div></>
+  return <><svg className="paper-rocket-side-wind" ref={sideWindRef} viewBox="0 0 420 780" preserveAspectRatio="none" aria-hidden="true">{sideWindPaths.map((path, index) => <path d={path} key={path} style={{ animationDelay: `${index * 150}ms` }} />)}</svg><svg className="paper-rocket-route" aria-hidden="true"><path className="paper-rocket-route__guide" ref={flightPathRef} />{Array.from({ length: DASH_COUNT }, (_, index) => <path className="paper-rocket-route__dash" key={index} ref={(element) => { dashRefs.current[index] = element }} style={{ animationDelay: `${index * 120}ms` }} />)}</svg><div className="paper-rocket-flight" ref={rocketRef} aria-hidden="true"><div className="paper-rocket-flight__glide"><div className="paper-rocket-flight__wind" ref={windRef}><i /><i /><i /></div><img ref={artworkRef} src={paperRocket} alt="" /></div></div></>
 }

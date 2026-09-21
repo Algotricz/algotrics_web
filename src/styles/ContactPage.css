@@ -56,7 +56,7 @@
 
 .contact-page__intro h1 em {
   color: var(--contact-lime);
-  font-family: Georgia, serif;
+  font-family: var(--font-accent);
   font-weight: 400;
 }
 
