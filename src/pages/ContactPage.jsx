@@ -38,28 +38,54 @@ export default function ContactPage() {
     const whatsappMessage = encodeURIComponent(`*New Algotrics project enquiry*\n\n*Name:* ${name}\n*Email:* ${email}\n*Company:* ${company}\n*Service:* ${projectType}\n\n*Project brief:*\n${message}`)
     const whatsappUrl = `https://wa.me/919443802105?text=${whatsappMessage}`
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const legacyEmailDisabled = true
-    const subject = encodeURIComponent(`Project enquiry from ${name}`)
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nCompany: ${company}\nProject type: ${projectType}\n\nProject details:\n${message}`)
-
-    setStatus('Opening your email app…')
-    if (!legacyEmailDisabled) window.location.href = `mailto:hello@algotrics.com?subject=${subject}&body=${body}`
+    const openWhatsApp = () => {
+      const anchor = document.createElement('a')
+      anchor.href = whatsappUrl
+      anchor.target = '_blank'
+      anchor.rel = 'noopener'
+      document.body.appendChild(anchor)
+      anchor.click()
+      anchor.remove()
+    }
 
     setIsSending(true)
-    setStatus('Folding your enquiry into a paper rocket…')
     if (prefersReducedMotion) {
-      window.location.assign(whatsappUrl)
+      setStatus('Sending your enquiry…')
+      openWhatsApp()
       return
     }
 
     const card = formRef.current
     const rocket = rocketRef.current
-    gsap.timeline({ onComplete: () => window.location.assign(whatsappUrl) })
-      .set(rocket, { autoAlpha: 0, scale: 0.18, rotation: -18 })
-      .to(card, { duration: 0.25, ease: 'power2.in', scaleY: 0.34, skewX: -5 })
-      .to(card, { duration: 0.22, ease: 'power3.in', scaleX: 0.24, x: 72, y: -16, rotation: -14, autoAlpha: 0 }, '+=0.03')
-      .to(rocket, { duration: 0.16, autoAlpha: 1, scale: 0.62, rotation: -20 }, '<')
-      .to(rocket, { duration: 0.75, ease: 'power3.in', x: window.innerWidth * 0.62, y: -window.innerHeight * 0.72, scale: 0.28, rotation: -31, autoAlpha: 0 })
+    const shellRect = card.closest('.contact-page__shell').getBoundingClientRect()
+    const cx = window.innerWidth / 2 - shellRect.left
+    const cy = window.innerHeight / 2 - shellRect.top
+    const r0 = Math.min(150, Math.max(92, Math.min(window.innerWidth, window.innerHeight) * 0.22))
+    const orbitStep = Math.PI * 5
+    const orbitAngle = { a: 0 }
+
+    gsap.timeline({ onComplete: openWhatsApp })
+      .set(rocket, { autoAlpha: 0, scale: 0.34, rotation: 0, rotationX: 0, rotationY: 0, x: 0, y: 0, z: 0 })
+      .set(card, { transformOrigin: '62% 48%' })
+      .to(card, { duration: 0.25, ease: 'power2.in', scaleY: 0.34, skewX: -5 }, 0)
+      .to(card, { duration: 0.22, ease: 'power3.in', scaleX: 0.24, x: 72, y: -16, rotation: -14, autoAlpha: 0 }, 0.3)
+      .call(() => setStatus('Lighting the fuse…'), [], 0.34)
+      .set(rocket, { autoAlpha: 1, left: `${cx}px`, top: `${cy}px`, scale: 0.52, rotation: -6 }, 0.34)
+      .to(rocket, { rotation: 5, duration: 0.34, repeat: 2, yoyo: true, ease: 'sine.inOut' }, 0.34)
+      .to(orbitAngle, {
+        a: orbitStep,
+        duration: 2,
+        ease: 'power1.inOut',
+        onUpdate: () => {
+          const progress = orbitAngle.a / orbitStep
+          const r = r0 * (1 - progress * 0.45)
+          rocket.style.left = `${cx + Math.cos(orbitAngle.a) * r - rocket.offsetWidth / 2}px`
+          rocket.style.top = `${cy - Math.sin(orbitAngle.a) * r - rocket.offsetHeight / 2}px`
+        }
+      }, 0.42)
+      .call(() => setStatus('Liftoff!'), [], 2.45)
+      .to(rocket, { duration: 0.5, ease: 'power2.out', rotationX: -380, rotationY: 170, rotation: -16, z: 170, scale: 1.06, y: -r0 * 1.35 }, 2.45)
+      .to(rocket, { duration: 0.55, ease: 'power3.in', rotationX: -740, rotationY: 360, rotation: -46, z: 400, scale: 0.42, x: window.innerWidth * 0.52, y: -window.innerHeight * 0.64, autoAlpha: 0 }, 2.95)
   }
 
   return (

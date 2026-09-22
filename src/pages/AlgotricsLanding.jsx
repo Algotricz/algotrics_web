@@ -1,8 +1,9 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import webMark from '../assets/algo.png'
 import aboutStudio from '../assets/about-algotrics-studio.png'
+import { scrollToTop } from '../lib/scroll'
 import '../styles/AlgotricsLanding.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -14,23 +15,13 @@ const services = [
 ]
 
 export default function AlgotricsLanding() {
-  const pageRef = useRef(null)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
+const pageRef = useRef(null)
   const openPage = (event, target) => {
     event.preventDefault()
     window.history.pushState({}, '', target)
     window.dispatchEvent(new PopStateEvent('popstate'))
-    setMenuOpen(false)
-    window.scrollTo(0, 0)
+    scrollToTop()
   }
-
-  useEffect(() => {
-    const updateNavbar = () => setIsScrolled(window.scrollY > 48)
-    updateNavbar()
-    window.addEventListener('scroll', updateNavbar, { passive: true })
-    return () => window.removeEventListener('scroll', updateNavbar)
-  }, [])
 
   useLayoutEffect(() => {
     const page = pageRef.current
@@ -43,7 +34,6 @@ export default function AlgotricsLanding() {
       const introItems = select('.hero__eyebrow, .hero__headline span, .hero__headline em, .hero__copy, .hero__actions')
 
       gsap.timeline({ defaults: { ease: 'power3.out' } })
-        .from(select('.nav'), { y: -24, autoAlpha: 0, duration: 0.65 })
         .from(introItems, { yPercent: 115, autoAlpha: 0, duration: 1, stagger: 0.11 }, '-=0.25')
         .from(select('.hero__visual'), { scale: 0.82, autoAlpha: 0, duration: 1.15 }, '-=0.9')
 
@@ -63,55 +53,42 @@ export default function AlgotricsLanding() {
         scrollTrigger: { trigger: select('.what-we-do')[0], start: 'top 76%', once: true },
       })
 
-      const serviceSlides = select('.what-we-do__list article')
-      const statementSlides = select('.statement__slide')
+const serviceSlides = select('.what-we-do__list article')
 
-      if (window.innerWidth > 760) {
-        page.classList.add('algotrics-page--scroll-scenes')
-        gsap.set(serviceSlides.slice(1), { yPercent: 100 })
+      page.classList.add('algotrics-page--scroll-scenes')
+      gsap.set(serviceSlides.slice(1), { yPercent: 100 })
 
-        const serviceSwipe = gsap.timeline({
-          scrollTrigger: {
-            trigger: select('.what-we-do__list')[0],
-            start: 'top top+=132',
-            end: `+=${(serviceSlides.length - 1) * 100}%`,
-            pin: true,
-            scrub: 0.7,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          },
-        })
-        serviceSlides.slice(0, -1).forEach((slide, index) => {
-          const transitionStart = index + 0.45
-          serviceSwipe
-            .to(slide, { autoAlpha: 0, yPercent: -18, ease: 'none', duration: 1 }, transitionStart)
-            .to(serviceSlides[index + 1], { yPercent: 0, ease: 'none', duration: 1 }, transitionStart)
-        })
+      const serviceSwipe = gsap.timeline({
+        scrollTrigger: {
+          trigger: select('.what-we-do__list')[0],
+          start: 'top top+=132',
+          end: `+=${(serviceSlides.length - 1) * 100}%`,
+          pin: true,
+          scrub: 0.7,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      })
+      serviceSlides.slice(0, -1).forEach((slide, index) => {
+        const transitionStart = index + 0.45
+        serviceSwipe
+          .to(slide, { autoAlpha: 0, yPercent: -18, ease: 'none', duration: 1 }, transitionStart)
+          .to(serviceSlides[index + 1], { yPercent: 0, ease: 'none', duration: 1 }, transitionStart)
+      })
 
-        gsap.to(select('.statement__track')[0], {
-          xPercent: -66.667,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: select('.statement')[0],
-            start: 'top top',
-            end: '+=200%',
-            pin: true,
-            scrub: 1,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          },
-        })
-      } else {
-        [...serviceSlides, ...statementSlides].forEach((section) => {
-          gsap.from(section, {
-            y: 56,
-            autoAlpha: 0,
-            duration: 0.75,
-            ease: 'power3.out',
-            scrollTrigger: { trigger: section, start: 'top 82%', once: true },
-          })
-        })
-      }
+      gsap.to(select('.statement__track')[0], {
+        xPercent: -66.667,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: select('.statement')[0],
+          start: 'top top',
+          end: '+=200%',
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      })
 
       gsap.from(select('.services__heading > *'), {
         y: 64,
@@ -160,32 +137,8 @@ export default function AlgotricsLanding() {
 
   return (
     <main className="algotrics-page" ref={pageRef}>
-      <section className="hero" id="top">
+<section className="hero" id="top">
         <div className="hero__grain" aria-hidden="true" />
-        <nav className={`nav ${isScrolled ? 'nav--scrolled' : ''}`} aria-label="Main navigation">
-          <div className="nav__bar">
-            <div className="nav__desktop-links nav__desktop-links--left"><a href="/talents" onClick={(event) => openPage(event, '/talents')}>Talents</a><a href="/work" onClick={(event) => openPage(event, '/work')}>Works</a></div>
-          <a className="brand" href="#top" aria-label="Algotrics home"><img src={webMark} alt="Algotrics" /></a>
-          <div className="nav__links"><a href="/work" onClick={(event) => openPage(event, '/work')}>Selected work</a><a href="/contact" onClick={(event) => openPage(event, '/contact')}>Let&apos;s talk </a></div>
-            <div className="nav__status"><span>ALGO / 2026</span><span>INDIA  GLOBAL</span></div>
-            <div className="nav__desktop-links nav__desktop-links--right"><a href="/about" onClick={(event) => openPage(event, '/about')}>About</a><a href="/contact" onClick={(event) => openPage(event, '/contact')}>Contact</a></div>
-            <button className="nav__toggle" type="button" aria-expanded={menuOpen} aria-controls="site-menu" onClick={() => setMenuOpen((isOpen) => !isOpen)}>
-              <span className="nav__toggle-label">{menuOpen ? 'Close' : 'Menu'}</span><i /><i />
-            </button>
-            <a className="nav__mobile-contact" href="/contact" onClick={(event) => openPage(event, '/contact')}>Contact</a>
-          </div>
-          <div className={`nav__panel ${menuOpen ? 'nav__panel--open' : ''}`} id="site-menu">
-            <p>Explore Algotrics</p>
-            <div className="nav__menu-links">
-              <a href="#top" onClick={() => setMenuOpen(false)}>Home <span>01</span></a>
-              <a href="/talents" onClick={(event) => { setMenuOpen(false); openPage(event, '/talents') }}>Talents <span>02</span></a>
-              <a href="/work" onClick={(event) => openPage(event, '/work')}>Selected work <span>03</span></a>
-              <a href="/about" onClick={(event) => openPage(event, '/about')}>About <span>04</span></a>
-              <a href="/contact" onClick={(event) => openPage(event, '/contact')}>Start a project <span>05</span></a>
-            </div>
-            <a className="nav__email" href="mailto:hello@algotrics.com">hello@algotrics.com </a>
-          </div>
-        </nav>
 
         <div className="hero__grid">
           <div className="hero__copywrap">

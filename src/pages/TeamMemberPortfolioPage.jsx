@@ -1,6 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { getTeamMember } from '../data/teamMembers'
+import { scrollToTop } from '../lib/scroll'
 import '../styles/TeamMemberPortfolioPage.css'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const assets = import.meta.glob('../assets/*/*.png', { eager: true, import: 'default' })
 const projectImage = (folder) => Object.entries(assets).find(([path]) => path.includes(`/assets/${folder}/HERO.`))?.[1] || Object.entries(assets).find(([path]) => path.includes(`/assets/${folder}/`))?.[1]
@@ -11,13 +16,48 @@ const projectImage = (folder) => Object.entries(assets).find(([path]) => path.in
  */
 export default function TeamMemberPortfolioPage({ slug, onNavigate }) {
   const member = getTeamMember(slug)
+  const pageRef = useRef(null)
 
-  useEffect(() => { window.scrollTo(0, 0) }, [slug])
+  useEffect(() => { scrollToTop() }, [slug])
+
+  useLayoutEffect(() => {
+    if (!member || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+
+    const context = gsap.context(() => {
+      gsap.timeline({ defaults: { ease: 'power3.out' } })
+        .from('.team-portfolio__back', { y: -16, autoAlpha: 0, duration: 0.5 })
+        .from('.team-portfolio__identity > *', { y: 44, autoAlpha: 0, stagger: 0.1, duration: 0.85 }, '-=0.3')
+        .from('.team-portfolio__portrait', { y: 56, autoAlpha: 0, duration: 0.95 }, '-=0.6')
+
+      Array.from(pageRef.current.querySelectorAll('.team-portfolio__about, .team-portfolio__details, .team-portfolio__selected-work, .team-portfolio__experience, .team-portfolio__contact')).forEach((section) => {
+        gsap.from(section.children, {
+          y: 46,
+          autoAlpha: 0,
+          stagger: 0.1,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: section, start: 'top 84%', once: true },
+        })
+      })
+
+      gsap.from('.team-portfolio__project', {
+        y: 60,
+        autoAlpha: 0,
+        stagger: 0.1,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '.team-portfolio__project-grid', start: 'top 82%', once: true },
+      })
+    }, pageRef)
+
+    ScrollTrigger.refresh()
+    return () => context.revert()
+  }, [member])
 
   if (!member) return <main className="team-portfolio team-portfolio--missing"><p>Profile not found.</p><a href="/about" onClick={(event) => { event.preventDefault(); onNavigate('/about') }}>Back to our team</a></main>
 
   return (
-    <main className="team-portfolio" style={{ '--member-accent': member.theme }}>
+    <main className="team-portfolio" ref={pageRef} style={{ '--member-accent': member.theme }}>
       <section className="team-portfolio__hero">
         <button className="team-portfolio__back" type="button" onClick={() => onNavigate('/about')}>← Our team</button>
         <div className="team-portfolio__identity">

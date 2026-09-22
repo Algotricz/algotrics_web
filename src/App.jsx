@@ -11,13 +11,26 @@ import ProjectCaseStudyPage from './pages/ProjectCaseStudyPage'
 import PaperRocketFlight from './components/PaperRocketFlight'
 import SiteNavbar from './components/SiteNavbar'
 import PageLoader from './components/PageLoader'
+import SmoothScroll from './components/SmoothScroll'
+import { scrollToTarget, scrollToTop } from './lib/scroll'
 
 export default function App() {
   const [path, setPath] = useState(() => window.location.pathname.replace(/\/+$/, ''))
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const syncPath = () => setPath(window.location.pathname.replace(/\/+$/, ''))
+    const syncPath = () => {
+      setPath(window.location.pathname.replace(/\/+$/, ''))
+      if (window.location.hash) {
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          const element = document.querySelector(window.location.hash)
+          if (element) scrollToTarget(element)
+          else scrollToTop()
+        }))
+      } else {
+        scrollToTop()
+      }
+    }
     window.addEventListener('popstate', syncPath)
     return () => window.removeEventListener('popstate', syncPath)
   }, [])
@@ -35,9 +48,15 @@ export default function App() {
   const navigate = (target) => {
     window.history.pushState({}, '', target)
     setPath(window.location.pathname.replace(/\/+$/, ''))
-    if (target.startsWith('/#')) requestAnimationFrame(() => document.querySelector(target.slice(1))?.scrollIntoView({ behavior: 'smooth' }))
-    else window.scrollTo(0, 0)
+    if (target.startsWith('/#')) {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        const element = document.querySelector(target.slice(1))
+        if (element) scrollToTarget(element)
+      }))
+    } else {
+      scrollToTop()
+    }
   }
 
-  return <>{isLoading && <PageLoader />}<SiteNavbar path={path} onNavigate={navigate} /><CurrentPage onNavigate={navigate} slug={projectSlug || teamMemberSlug} /><PaperRocketFlight /><CustomCursor /></>
+  return <>{isLoading && <PageLoader />}<SiteNavbar path={path} onNavigate={navigate} /><CurrentPage onNavigate={navigate} slug={projectSlug || teamMemberSlug} /><PaperRocketFlight /><CustomCursor /><SmoothScroll /></>
 }
