@@ -22,6 +22,7 @@
   grid-template-columns: minmax(0, 0.9fr) minmax(460px, 0.85fr);
   gap: clamp(70px, 10vw, 170px);
   align-items: start;
+  position: relative;
 }
 
 .contact-page__eyebrow {
@@ -102,6 +103,42 @@
   border-radius: 30px;
   padding: clamp(26px, 3vw, 42px);
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.24);
+  overflow: visible;
+  position: relative;
+  transform-origin: 62% 48%;
+  z-index: 1;
+}
+
+.contact-form::after {
+  background: repeating-linear-gradient(132deg, transparent 0 24px, rgba(183, 154, 104, 0.28) 25px 26px, transparent 27px 50px);
+  border-radius: inherit;
+  content: '';
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 0.12s;
+}
+
+.contact-form.is-sending {
+  pointer-events: none;
+}
+
+.contact-form.is-sending::after {
+  opacity: 1;
+}
+
+.contact-page__send-rocket {
+  filter: drop-shadow(5px 12px 8px rgba(0, 0, 0, 0.32));
+  height: clamp(74px, 9vw, 132px);
+  left: 70%;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 36%;
+  transform-origin: 50% 50%;
+  width: auto;
+  z-index: 3;
 }
 
 .contact-form__heading {
