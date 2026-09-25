@@ -1,7 +1,7 @@
 :root {
-  --work-ink: #171614;
-  --work-paper: #F5F1E8;
-  --work-lime: #B79A68;
+  --work-ink: #1E1B18;
+  --work-paper: #F8F3E9;
+  --work-lime: #149A98;
   --work-line: rgba(245, 241, 232, 0.25);
 }
 body .work-page .work-nav {
@@ -420,3 +420,5 @@ body .work-page .work-nav {
     padding: 72px 20px 30px;
   }
 }
+
+.work-footer { background: linear-gradient(180deg, var(--work-ink) 0, #c7d1c5 clamp(38px, 5vw, 76px), var(--work-paper) clamp(76px, 9vw, 128px), var(--work-paper) 100%); }

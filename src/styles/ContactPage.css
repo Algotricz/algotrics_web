@@ -1,7 +1,7 @@
 .contact-page {
-  --contact-ink: #171614;
-  --contact-paper: #F5F1E8;
-  --contact-lime: #B79A68;
+  --contact-ink: #1E1B18;
+  --contact-paper: #F8F3E9;
+  --contact-lime: #149A98;
   height: 100svh;
   background: var(--contact-ink);
   color: var(--contact-paper);

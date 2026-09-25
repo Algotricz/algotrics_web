@@ -1,8 +1,8 @@
 .about-page {
-  --about-ink: #171614;
-  --about-ink-deep: #171614;
-  --about-paper: #F5F1E8;
-  --about-lime: #B79A68;
+  --about-ink: #1E1B18;
+  --about-ink-deep: #1E1B18;
+  --about-paper: #F8F3E9;
+  --about-lime: #149A98;
   background: var(--about-paper);
   color: var(--about-ink);
   overflow: hidden;
@@ -525,3 +525,8 @@
     flex-direction: column;
   }
 }
+
+/* Colour handoffs use the preceding and incoming section surfaces. */
+.about-page__principles { background: linear-gradient(180deg, var(--about-paper) 0, #c7d1c5 clamp(38px, 5vw, 76px), var(--about-ink-deep) clamp(76px, 9vw, 128px), var(--about-ink-deep) 100%); }
+.about-page__team { background: linear-gradient(180deg, var(--about-ink-deep) 0, #197a76 clamp(38px, 5vw, 76px), var(--about-lime) clamp(76px, 9vw, 128px), var(--about-lime) 100%); }
+.about-page__cta { background: linear-gradient(180deg, var(--about-lime) 0, #274543 clamp(38px, 5vw, 76px), var(--about-ink) clamp(76px, 9vw, 128px), var(--about-ink) 100%); }

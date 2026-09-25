@@ -1,8 +1,8 @@
 .talents-page {
-  --talent-ink: #171614;
-  --talent-deep: #171614;
-  --talent-paper: #F5F1E8;
-  --talent-lime: #B79A68;
+  --talent-ink: #1E1B18;
+  --talent-deep: #1E1B18;
+  --talent-paper: #F8F3E9;
+  --talent-lime: #149A98;
   background: var(--talent-paper);
   color: var(--talent-ink);
   overflow: hidden;
@@ -100,3 +100,7 @@
   .talents-page__role-list article > div:last-child { align-items: flex-start; }
   .talents-page__cta { min-height: 680px; }
 }
+
+.talents-page__values { background: linear-gradient(180deg, var(--talent-ink) 0, #c7d1c5 clamp(38px, 5vw, 76px), var(--talent-paper) clamp(76px, 9vw, 128px), var(--talent-paper) 100%); }
+.talents-page__roles { background: linear-gradient(180deg, var(--talent-paper) 0, #74bdb6 clamp(38px, 5vw, 76px), var(--talent-lime) clamp(76px, 9vw, 128px), var(--talent-lime) 100%); }
+.talents-page__cta { background: linear-gradient(180deg, var(--talent-lime) 0, #274543 clamp(38px, 5vw, 76px), var(--talent-deep) clamp(76px, 9vw, 128px), var(--talent-deep) 100%); }

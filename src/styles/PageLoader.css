@@ -1,7 +1,7 @@
 .page-loader {
   align-items: center;
-  background: #171614;
-  color: #F5F1E8;
+  background: #1E1B18;
+  color: #F8F3E9;
   display: flex;
   inset: 0;
   justify-content: center;
@@ -19,7 +19,7 @@
 }
 .page-loader::before {
   animation: loader-orbit 4s linear infinite;
-  border-left-color: #B79A68;
+  border-left-color: #149A98;
 }
 .page-loader__content {
   align-items: center;
@@ -43,7 +43,7 @@
 }
 .page-loader__content span,
 .page-loader small {
-  color: #B79A68;
+  color: #149A98;
   font-size: 0.61rem;
   font-weight: 800;
   letter-spacing: 0.15em;
@@ -60,7 +60,7 @@
 }
 .page-loader__progress i {
   animation: loader-progress 1.45s cubic-bezier(0.2, 0.75, 0.25, 1) forwards;
-  background: #B79A68;
+  background: #149A98;
   display: block;
   height: 100%;
   transform: translateX(-100%);

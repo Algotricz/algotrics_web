@@ -1,9 +1,9 @@
 :root {
-  --ink: #171614;
-  --ink-soft: #24211D;
-  --paper: #F5F1E8;
-  --lime: #B79A68;
-  --orange: #B79A68;
+  --ink: #1E1B18;
+  --ink-soft: #2C2823;
+  --paper: #F8F3E9;
+  --lime: #149A98;
+  --orange: #149A98;
   --line: rgba(23, 22, 20, 0.23);
 }
 
@@ -689,15 +689,36 @@ a {
   max-width: 400px;
 }
 .statement__slide--lime {
-  background: var(--lime);
+  background: linear-gradient(
+    180deg,
+    var(--paper) 0,
+    #c9e1dc clamp(16px, 2.2vw, 30px),
+    #74bdb6 clamp(42px, 5.5vw, 76px),
+    var(--lime) clamp(72px, 9vw, 128px),
+    var(--lime) 100%
+  );
   color: var(--ink);
 }
 .statement__slide--ink {
-  background: var(--ink);
+  background: linear-gradient(
+    180deg,
+    var(--lime) 0%,
+    #197a76 clamp(16px, 2.2vw, 30px),
+    #274543 clamp(42px, 5.5vw, 76px),
+    var(--ink) clamp(72px, 9vw, 128px),
+    var(--ink) 100%
+  );
   color: var(--paper);
 }
 .statement__slide--paper {
-  background: var(--paper);
+  background: linear-gradient(
+    180deg,
+    var(--ink) 0%,
+    #575b54 clamp(16px, 2.2vw, 30px),
+    #c7d1c5 clamp(42px, 5.5vw, 76px),
+    var(--paper) clamp(72px, 9vw, 128px),
+    var(--paper) 100%
+  );
   color: var(--ink);
 }
 
@@ -767,6 +788,14 @@ a {
 }
 
 .closing {
+  background: linear-gradient(
+    180deg,
+    var(--paper) 0%,
+    #c7d1c5 clamp(16px, 2.2vw, 30px),
+    #575b54 clamp(42px, 5.5vw, 76px),
+    var(--ink) clamp(72px, 9vw, 128px),
+    var(--ink) 100%
+  );
   min-height: 100svh;
   overflow: hidden;
   padding: clamp(70px, 9vw, 135px) clamp(24px, 7vw, 112px) 30px;
