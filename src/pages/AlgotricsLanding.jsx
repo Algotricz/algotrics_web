@@ -3,6 +3,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import webMark from '../assets/algo.png'
 import aboutStudio from '../assets/about-algotrics-studio.png'
+import ServiceGlobe from '../components/ServiceGlobe'
 import { scrollToTop } from '../lib/scroll'
 import '../styles/AlgotricsLanding.css'
 
@@ -26,6 +27,7 @@ const pageRef = useRef(null)
   useLayoutEffect(() => {
     const page = pageRef.current
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    let removeServiceListeners = () => {}
 
     const context = gsap.context(() => {
       if (reducedMotion) return
@@ -53,28 +55,55 @@ const pageRef = useRef(null)
         scrollTrigger: { trigger: select('.what-we-do')[0], start: 'top 76%', once: true },
       })
 
-const serviceSlides = select('.what-we-do__list article')
+      const serviceCards = select('.what-we-do__service-button')
+      const serviceCore = select('.what-we-do__core')[0]
+      const serviceCoreTitle = serviceCore.querySelector('.what-we-do__core-copy h3')
+      const serviceCoreCopy = serviceCore.querySelector('.what-we-do__core-copy p')
+      const activateService = (activeCard) => {
+        const nextTitle = activeCard.dataset.title
+        const nextCopy = activeCard.dataset.copy
+        serviceCards.forEach((card) => card.classList.toggle('is-active', card === activeCard))
+        serviceCards.forEach((card) => card.setAttribute('aria-selected', String(card === activeCard)))
+        gsap.killTweensOf([...serviceCards, serviceCoreTitle, serviceCoreCopy])
+        gsap.to(serviceCards, { duration: 0.35, scale: 1, overwrite: true })
+        gsap.to(activeCard, { duration: 0.35, ease: 'power3.out', scale: 1.06, overwrite: true })
+        gsap.timeline()
+          .to([serviceCoreTitle, serviceCoreCopy], { autoAlpha: 0, duration: 0.16, y: -10 })
+          .call(() => { serviceCoreTitle.textContent = nextTitle; serviceCoreCopy.textContent = nextCopy })
+          .to([serviceCoreTitle, serviceCoreCopy], { autoAlpha: 1, duration: 0.34, ease: 'power3.out', stagger: 0.05, y: 0 })
+      }
+      const handlers = serviceCards.map((card) => {
+        const activate = () => activateService(card)
+        card.addEventListener('mouseenter', activate)
+        card.addEventListener('focus', activate)
+        card.addEventListener('click', activate)
+        return { card, activate }
+      })
+      removeServiceListeners = () => handlers.forEach(({ card, activate }) => {
+        card.removeEventListener('mouseenter', activate)
+        card.removeEventListener('focus', activate)
+        card.removeEventListener('click', activate)
+      })
+      gsap.timeline({
+        scrollTrigger: { trigger: select('.what-we-do__list')[0], start: 'top 76%', once: true },
+      })
+        .from(serviceCards, {
+          autoAlpha: 0,
+          duration: 0.72,
+          ease: 'power3.out',
+          stagger: 0.09,
+          x: -44,
+          y: 22,
+        })
+        .from(select('.what-we-do__core h3, .what-we-do__core p'), {
+          autoAlpha: 0,
+          duration: 0.45,
+          ease: 'power3.out',
+          stagger: 0.06,
+          x: -18,
+        }, '-=0.36')
 
       page.classList.add('algotrics-page--scroll-scenes')
-      gsap.set(serviceSlides.slice(1), { yPercent: 100 })
-
-      const serviceSwipe = gsap.timeline({
-        scrollTrigger: {
-          trigger: select('.what-we-do__list')[0],
-          start: 'top top+=132',
-          end: `+=${(serviceSlides.length - 1) * 100}%`,
-          pin: true,
-          scrub: 0.7,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      })
-      serviceSlides.slice(0, -1).forEach((slide, index) => {
-        const transitionStart = index + 0.45
-        serviceSwipe
-          .to(slide, { autoAlpha: 0, yPercent: -18, ease: 'none', duration: 1 }, transitionStart)
-          .to(serviceSlides[index + 1], { yPercent: 0, ease: 'none', duration: 1 }, transitionStart)
-      })
 
       gsap.to(select('.statement__track')[0], {
         xPercent: -66.667,
@@ -130,6 +159,7 @@ const serviceSlides = select('.what-we-do__list article')
     ScrollTrigger.refresh()
 
     return () => {
+      removeServiceListeners()
       context.revert()
       page.classList.remove('algotrics-page--scroll-scenes')
     }
@@ -163,12 +193,15 @@ const serviceSlides = select('.what-we-do__list article')
         <h2>From the first spark<br />to the <em>full launch.</em></h2>
         <div className="what-we-do__list">
           <div className="what-we-do__track">
-            <article><span>01</span><div><h3>Web development</h3><p>Fast, responsive websites and digital products engineered to work beautifully everywhere.</p></div></article>
-            <article><span>02</span><div><h3>Digital marketing</h3><p>Focused campaigns and content that turn attention into measurable business growth.</p></div></article>
-            <article><span>03</span><div><h3>SEO &amp; search visibility</h3><p>Technical SEO and content strategy that help the right customers find you first.</p></div></article>
-            <article><span>04</span><div><h3>Business automation &amp; custom software</h3><p>Streamlined workflows and tailored software built around the way your team works.</p></div></article>
-            <article><span>05</span><div><h3>AI &amp; marketing automation</h3><p>Connected AI tools and intelligent campaigns that create momentum without manual effort.</p></div></article>
-            <article><span>06</span><div><h3>Branding &amp; digital presence</h3><p>Distinct identities and high-converting digital touchpoints that leave a lasting impression.</p></div></article>
+            <div className="what-we-do__service-nav" role="tablist" aria-label="Our services">
+              <button className="what-we-do__service-button is-active" type="button" role="tab" aria-selected="true" data-title="Web development" data-copy="Fast, responsive websites and digital products engineered to work beautifully everywhere."><span>01</span><strong>Web development</strong></button>
+              <button className="what-we-do__service-button" type="button" role="tab" aria-selected="false" data-title="Digital marketing" data-copy="Focused campaigns and content that turn attention into measurable business growth."><span>02</span><strong>Digital marketing</strong></button>
+              <button className="what-we-do__service-button" type="button" role="tab" aria-selected="false" data-title="SEO &amp; search visibility" data-copy="Technical SEO and content strategy that help the right customers find you first."><span>03</span><strong>SEO &amp; search visibility</strong></button>
+              <button className="what-we-do__service-button" type="button" role="tab" aria-selected="false" data-title="Business automation &amp; custom software" data-copy="Streamlined workflows and tailored software built around the way your team works."><span>04</span><strong>Business automation &amp; custom software</strong></button>
+              <button className="what-we-do__service-button" type="button" role="tab" aria-selected="false" data-title="AI &amp; marketing automation" data-copy="Connected AI tools and intelligent campaigns that create momentum without manual effort."><span>05</span><strong>AI &amp; marketing automation</strong></button>
+              <button className="what-we-do__service-button" type="button" role="tab" aria-selected="false" data-title="Branding &amp; digital presence" data-copy="Distinct identities and high-converting digital touchpoints that leave a lasting impression."><span>06</span><strong>Branding &amp; digital presence</strong></button>
+            </div>
+            <div className="what-we-do__core" role="tabpanel" aria-live="polite"><div className="what-we-do__core-copy"><span>Selected service</span><h3>Web development</h3><p>Fast, responsive websites and digital products engineered to work beautifully everywhere.</p></div><ServiceGlobe /></div>
           </div>
         </div>
         <a className="what-we-do__cta" href="#services">Explore our services <span></span></a>
